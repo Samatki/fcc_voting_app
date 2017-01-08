@@ -1,0 +1,28 @@
+{
+  "name": "voting_site",
+  "version": "1.0.0",
+  "description": "FCC voting app full stack",
+  "main": "server.js",
+  "dependencies": {
+    "async": "^0.2.10",
+    "bootstrap": "^3.3.7",
+    "chart.js": "^2.4.0",
+    "devicons": "^1.8.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.14.0",
+    "jquery": "^3.1.1",
+    "mongoose": "^4.7.6",
+    "pug": "^2.0.0-beta6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "voting",
+    "fcc"
+  ],
+  "author": "SLA",
+  "license": "ISC"
+}
