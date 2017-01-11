@@ -1,0 +1,18 @@
+include header.pug
+
+div.container
+    div.col-xs-12#pollTitle 
+        h2 #{pollName}
+        
+        - var pollData = JSON.parse(poll)
+ 
+        h4#pollAuthor #{pollData.creator}
+        
+    div.col-xs-12.col-sm-6 
+        canvas#pollChart(width='500' height='500')
+    each item in pollData.pollData
+        div.col-xs-12.col-sm-4.offset-sm-1 #{item.entryName}
+            
+include footer.pug
+
+        

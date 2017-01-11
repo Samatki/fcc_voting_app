@@ -2,12 +2,24 @@
 require('dotenv').config()
 var express = require('express');
 var mongoose = require('mongoose');
-var routes = require('./routes');
+var routes = require('./server/routes');
 
 // Server initialisation
 var app = express();
 app.listen(process.env.PORT || 8080);
 console.log('Server started on port: ' + process.env.PORT);
+
+// App Parameters 
+app.set('view engine', 'pug')
+app.set('views', __dirname + '/public/views');
+app.use(express.static('public'));
+
+    // Hosted JS Libraries
+app.use('/js', express.static(__dirname + '/node_modules/chart.js/dist'));    
+app.use('/js', express.static(__dirname + '/node_modules/bootstrap/dist/js')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/chart.js/dist/')); // redirect bootstrap JS
+app.use('/js', express.static(__dirname + '/node_modules/jquery/dist')); // redirect JS jQuery
+app.use('/bs', express.static(__dirname + '/node_modules/bootstrap/dist/css')); // redirect CSS bootstrap
 
 // Database initialisation
 mongoose.connect(process.env.DB_URI)
@@ -17,7 +29,7 @@ var db = mongoose.connection;
         if(err) {
             console.error('ERROR: database access error');
             app.get('*',function(req,res){
-                res.send('DATABASE ERROR, CONTACT SITE ADMINISTRATOR')
+                res.status(503).send('DATABASE CONNECTION ERROR, CONTACT SITE ADMINISTRATOR')
             })
         };
     });

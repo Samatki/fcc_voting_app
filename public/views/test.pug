@@ -1,0 +1,12 @@
+include header.pug
+
+if params.page == 'test' 
+    script(type='text/javascript').
+        console.log('Test');
+        var x = "#{params.poll}";
+        console.log(x)
+        var y = x.replace(/\\&quot;/g,'\"')
+        var z = y.replace(/&quot;/g,'"')
+        console.log(JSON.parse(z))
+        
+
