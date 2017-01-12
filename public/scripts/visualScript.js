@@ -21,7 +21,7 @@ function getCurrentPageData(page){
         console.log(currentPage);
         $('.container').html('');
         data.polls.forEach(function(index){
-        $('.container').append('<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"><div class="col-xs-10 col-xs-offset-1 pollListItem"><p>'+index.name+'</p><p>'+index.creator+'</p></div></div>')
+        $('.container').append('<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3"><a href="/poll?pollID='+ index.ID +'"><div class="col-xs-10 col-xs-offset-1 pollListItem"><p>'+index.name+'</p><p>'+index.creator+'</p></div></a></div>')
             
         })
         if (data.noOfPages <= 1){

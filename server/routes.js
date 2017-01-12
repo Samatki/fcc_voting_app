@@ -56,8 +56,14 @@ module.exports = function(app){
         }) */
         
     app.route('/poll')
-        .get(function(req,res){ loadPoll(req,res)});
-
+        .get(function(req,res){
+            // Fix for badly formatted URLs (mucks up script and link tags in document for some reason)
+            if (req.originalUrl.substr(0,6) == '/poll/'){
+                res.redirect(req.originalUrl.replace('/poll/','/poll'))
+            } else {
+            loadPoll(req,res)}
+        });
+                
         
     // API //
         
