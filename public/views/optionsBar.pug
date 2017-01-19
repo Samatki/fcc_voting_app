@@ -1,0 +1,10 @@
+- var login = true
+div#topNav
+    div.container
+        if login == true
+            a(href="/myDashboard"): div.col-xs-12.col-sm-4.navButtons My Dashboard
+            a(href="/CreatePoll"): div.col-xs-12.col-sm-4.navButtons Create Poll
+            a(href="/LogOut"): div.col-xs-12.col-sm-4.navButtons Log Out
+        else
+            a(href="/LogIn"): div.col-xs-4.col-xs-offset-4.navButtons Log In
+    

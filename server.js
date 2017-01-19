@@ -6,13 +6,14 @@ var routes = require('./server/routes');
 
 // Server initialisation
 var app = express();
-app.listen(process.env.PORT || 8080);
-console.log('Server started on port: ' + process.env.PORT);
+app.listen(process.env.PORT || 8080, function(){
+    console.log('Server started on port: ' + this.address().port)    
+});
 
 // App Parameters 
 app.set('view engine', 'pug')
 app.set('views', __dirname + '/public/views');
-app.use(express.static('public'));
+app.use(express.static('./public'));
 
     // Hosted JS Libraries
 app.use('/js', express.static(__dirname + '/node_modules/chart.js/dist'));    

@@ -24,9 +24,10 @@
                                 entryVotes:Number,
                                 entryColor:String,
                                 entryCreator: String,
-                                entryCreationDate: Date
-                            }
-                        ] 
+                                entryCreationDate: Date,
+                            },
+                        ],
+                        voters: [String]
     });
 
     module.exports = mongoose.model('pollData', pollSchema);

@@ -19,7 +19,6 @@ module.exports = function(pageNo, noEntriesPerPage, res){
             polls: []
         }
         
-        
         // Validation of number of values to skip (pagination)
         var skipped = 0;
         

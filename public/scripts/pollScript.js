@@ -2,17 +2,6 @@
 
 $(document).ready(function(){ 
 
-/*
-var BlankScheme = {
-                    entryID : null,
-                    entryCreator : null,
-                    entryCreationDate: null,
-                    entryName : null,
-                    entryVotes: null,
-                    entryColor: null
-};
-*/
-
 // Convert pollData to usable format (chart.JS uses Arrays);
 var entryLabels = poll.pollData.map(function(item){return item.entryName;});
 var entryData = poll.pollData.map(function(item){return item.entryVotes;});

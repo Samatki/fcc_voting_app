@@ -1,6 +1,7 @@
 include header.pug
+include optionsBar.pug
+div.container#mainContent
 
-div.container
     div.col-xs-12#pollTitle 
         h2 #{pollName}
         
@@ -11,7 +12,9 @@ div.container
     div.col-xs-12.col-sm-6 
         canvas#pollChart(width='500' height='500')
     each item in pollData.pollData
-        div.col-xs-12.col-sm-4.offset-sm-1 #{item.entryName}
+        div.voteButton.col-xs-10.col-sm-4.col-sm-offset-1.col-xs-offset-1 
+            div
+            p #{item.entryName}
             
 include footer.pug
 

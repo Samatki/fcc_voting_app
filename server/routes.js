@@ -3,13 +3,18 @@ module.exports = function(app){
     var express = require('express');
     var mongoose = require('mongoose');
     var loadPoll = require('./database_interaction/retrievePoll');
+    var createPoll = require('./database_interaction/createPoll');
+    var deletePoll = require('./database_interaction/deletePoll');
     var pollList = require('./database_interaction/pollList');
     // Pug not actually neccessary unless using pug methods
     // var pug = require('pug');
 
-    app.route('/test')
+    app.route('/test/test')
         .get(function(req,res){
-            pollList(1, 20, res)
+            res.send('Test')
+         //   res.sendFile(__dirname+'/test.html')
+      //      res.render('main.pug', {page: 'main'})
+//            pollList(1, 20, res)
          //  res.send('TEST');
         }) 
 
@@ -27,6 +32,7 @@ module.exports = function(app){
         
     app.route('/')
         .get(function(req,res){
+            console.log(req.headers['x-forwarded-for'])
             res.render('main.pug', {page: 'main'})
         })
 
@@ -57,19 +63,24 @@ module.exports = function(app){
         
     app.route('/poll')
         .get(function(req,res){
-            // Fix for badly formatted URLs (mucks up script and link tags in document for some reason)
-            if (req.originalUrl.substr(0,6) == '/poll/'){
-                res.redirect(req.originalUrl.replace('/poll/','/poll'))
-            } else {
-            loadPoll(req,res)}
-        });
+          loadPoll(req,res)
+          // deletePoll(req,res,'CXXX',110)
+        })
+
+        
                 
         
     // API //
+        app.route('/API/CreateNewPoll')
+            .post(function(req,res){
+            createPoll(req,res)
+        });    
+        
         
         // PUBLIC ROUTE ON MAIN PAGE //
         
     app.route('/API/getCurrentEntries')
+    
         .get(function(req,res){
             var page = parseInt(req.query.page);
             var noEntriesPerPage = 20;
@@ -78,10 +89,17 @@ module.exports = function(app){
             pollList(page, noEntriesPerPage, res);
         });
         
+        
+        // ** Delete Poll Steps **//
+        //Load in req poll ID
+        //Check if user is logged in (session)
+        //Get current user username
+        //Load deletePoll.js with deletePoll(req,res,username,pollID)
+        
         // Detects all other URLS and redirects to 404 
-        app.route('*')
+      /*  app.route('*')
             .get(function(req,res){
                 res.redirect('/404');
             }); 
-        
+        */
 };
