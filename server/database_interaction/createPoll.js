@@ -17,7 +17,7 @@ module.exports = function(req, res){
                         pollOptions : {
                             allowEdit: true,
                             allowAdditionOfOptions: true,
-                            allowUserToVoteForMultiplCategories : false,
+                            allowUserToVoteForMultipleCategories : false,
                             // Default Chart type = pie chart
                             pollChartType : 'pie'
                         },

@@ -7,7 +7,12 @@ module.exports = function(req,res, pollID, categoryID, categoryName, userID, use
         if (doc == null){
             // Can't find poll for whatever reason (likely database error)
             res.redirect('/500');
-        }else{
+        }
+        // Check if page can be edited
+        //else if(doc.pollOptions.allowEdit == false){
+        //    res.json('No editing allowed!');
+        //}
+        else{
         // Found the poll
             if(doc.pollOptions.allowUserToVoteForMultipleCategories == false){
             // Checks handler to see if user can vote in multiple categories    
@@ -33,9 +38,27 @@ module.exports = function(req,res, pollID, categoryID, categoryName, userID, use
                             res.redirect('/poll/?pollID='+pollID);
                             break;
                         } else if (i == doc.pollData.length - 1){
+                        if (doc.pollOptions.allowAdditionOfOptions){
+                            // Adds additional category to poll database
+                            doc.pollData.push({
+                                entryID: doc.pollData.length,
+                                entryName:categoryName,
+                                entryVotes:0,
+                                entryColor:'red', // 'hsla('+this.entryID*25%360+',65%,68%,1)'
+                                entryCreator: userID,
+                                entryCreationDate: new Date(),
+                                voters:[],
+                                voterIPs:[]                                
+                            })
+                            doc.save(function(err){
+                                if (err) throw err;
+                            })
+                            console.log('New vote on poll ' + pollID);
+                            res.redirect('/poll/?pollID='+pollID);
+                        }else{
                             // Did not find matching category to user input, should not occur other than in cases where a bad request has been sent from the client    
-                            res.json('Could not find category to vote on');
-                        
+                            res.json('Could not find category to vote on')
+                        };
                         }
                     }
                 }        
@@ -66,10 +89,28 @@ module.exports = function(req,res, pollID, categoryID, categoryName, userID, use
                             break;
                         }
                     } else  if (i == doc.pollData.length - 1){
+                            if (doc.pollOptions.allowAdditionOfOptions){
+                            // Adds additional category to poll database
+                            doc.pollData.push({
+                                entryID: doc.pollData.length,
+                                entryName:categoryName,
+                                entryVotes:0,
+                                entryColor:'red', // 'hsla('+this.entryID*25%360+',65%,68%,1)'
+                                entryCreator: userID,
+                                entryCreationDate: new Date(),
+                                voters:[],
+                                voterIPs:[]                                
+                            })
+                            doc.save(function(err){
+                                if (err) throw err;
+                            })
+                            console.log('New vote on poll ' + pollID);
+                            res.redirect('/poll/?pollID='+pollID);
+                            } else {
                         // Did not find matching category to user input, should not occur other than in cases where a bad request has been sent from the client                      
                             res.json('Could not find category to vote on');
                     }
-                 
+                } 
             }
         }    
     }

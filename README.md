@@ -5,7 +5,7 @@
 
  ### User Stories
  
-- User Story: As an authenticated user, I can keep my polls and come back later to access them.
+- User Story: As an authenticated user, I can keep my polls and come back later to access them. 
 
 - User Story: As an authenticated user, I can share my polls with my friends.
 
